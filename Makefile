@@ -1,5 +1,5 @@
 
-NAME 		= philosophers
+NAME 		= philo
 
 CC			= gcc
 

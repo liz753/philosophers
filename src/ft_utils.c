@@ -1,7 +1,6 @@
 
 #include "../includes/philosophers.h"
 
-//get time of day function 
 time_t   ft_timestamp(void)
 {
     struct timeval    time_of_day;

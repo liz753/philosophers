@@ -43,7 +43,7 @@ void	ft_sleep(t_philo *philo)
 	time_t	now;
 
 	pthread_mutex_lock(&(philo->data->dead_mutex));
-	if (philo->data->dead_philo == TRUE)
+	if (philo->data->sim_end == TRUE)
 	{
 		pthread_mutex_unlock(&(philo->data->dead_mutex));
 		return ;

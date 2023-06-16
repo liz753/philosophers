@@ -6,10 +6,11 @@ int	main(int argc, char **argv)
 	t_data	data;
 	if (argc >= 5 && argc <= 6)
 	{
-		ft_parsing(argc, argv, &data);
+		if (!ft_parsing(argc, argv, &data))
+			return (0);
 		ft_init_mutex(&data);
 		pthread_mutex_lock(&(data.dead_mutex));
-		data.dead_philo = FALSE;
+		data.sim_end = FALSE;
 		pthread_mutex_unlock(&(data.dead_mutex));
 		ft_init_forks(&data);
 		data.sim_start = ft_timestamp();

@@ -6,7 +6,7 @@ bool	ft_philo_dead(t_philo *philo)
 	time_t	now;
 
 	pthread_mutex_lock(&(philo->data->dead_mutex));
-	if (philo->data->dead_philo == TRUE)
+	if (philo->data->sim_end == TRUE)
 	{
 		pthread_mutex_unlock(&(philo->data->dead_mutex));
 		return (TRUE);
@@ -17,7 +17,7 @@ bool	ft_philo_dead(t_philo *philo)
 		pthread_mutex_lock(&(philo->data->print_mutex));
 		printf("%ld Philosopher %d died. last_meal_ms_ago: %ld\n", now, philo->nb, now - philo->last_meal);
 		pthread_mutex_unlock(&(philo->data->print_mutex));
-		philo->data->dead_philo = TRUE;
+		philo->data->sim_end = TRUE;
 		pthread_mutex_unlock(&(philo->data->dead_mutex));
 		return (TRUE);
 	}
@@ -71,4 +71,5 @@ void	ft_create_philos(t_data *data)
 			return ;
 		i++;
 	}
+	
 }

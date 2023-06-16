@@ -43,11 +43,15 @@ typedef struct	s_data
 	pthread_mutex_t		forks_mutex;
 	pthread_mutex_t		print_mutex;
 	pthread_mutex_t		dead_mutex;
-	bool				dead_philo;
+	bool				sim_end;
 }						t_data;
 
 //parsing
-void	ft_parsing(int argc, char **argv, t_data *data); 
+bool	ft_parsing(int argc, char **argv, t_data *data);
+int		ft_isnum(char *str);
+bool	ft_check_is_nb(char **argv);
+size_t	ft_strlen(const char *s);
+int		ft_strcmp(char *s1, char *s2);
 
 //philosophers
 void	ft_create_philos(t_data *data);
