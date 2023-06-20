@@ -40,7 +40,7 @@ typedef struct	s_data
 	struct s_philo		philos[200];
 	time_t				sim_start;
 	bool				forks[200];
-	pthread_mutex_t		forks_mutex;
+	pthread_mutex_t		forks_mutex[200];
 	pthread_mutex_t		print_mutex;
 	pthread_mutex_t		dead_mutex;
 	bool				sim_end;

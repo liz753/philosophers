@@ -12,13 +12,15 @@ bool	ft_eat(t_philo *philo)
 
 	fork1 = philo->nb - 1;
 	fork2 = philo->nb % philo->data->nb_philo;
-	pthread_mutex_lock(&(philo->data->forks_mutex));
+	pthread_mutex_lock(&(philo->data->forks_mutex[fork1]));
+	pthread_mutex_lock(&(philo->data->forks_mutex[fork2]));
 	if (philo->data->forks[fork1] == TRUE 
 			&& philo->data->forks[fork2] == TRUE && fork1 != fork2)
 	{
 		philo->data->forks[philo->nb - 1] = FALSE; 
 		philo->data->forks[philo->nb % philo->data->nb_philo] = FALSE;
-		pthread_mutex_unlock(&(philo->data->forks_mutex));
+		pthread_mutex_unlock(&(philo->data->forks_mutex[fork1]));
+		pthread_mutex_unlock(&(philo->data->forks_mutex[fork2]));
 		pthread_mutex_lock(&(philo->data->print_mutex));
 		printf("%ld Philosopher %d has taken a fork\n", ft_timestamp(), philo->nb);
 		printf("%ld Philosopher %d has taken a fork\n", ft_timestamp(), philo->nb);
@@ -28,16 +30,19 @@ bool	ft_eat(t_philo *philo)
 		philo->last_meal = ft_timestamp();
 		ft_suspend_process(philo->data, philo->data->time_to_eat);
 		philo->times_eaten += 1;
-		pthread_mutex_lock(&(philo->data->forks_mutex));
+		pthread_mutex_lock(&(philo->data->forks_mutex[fork1]));
+		pthread_mutex_lock(&(philo->data->forks_mutex[fork2]));
 		philo->data->forks[philo->nb - 1] = TRUE;
 		philo->data->forks[philo->nb % philo->data->nb_philo] = TRUE;
-		pthread_mutex_unlock(&(philo->data->forks_mutex));
+		pthread_mutex_unlock(&(philo->data->forks_mutex[fork1]));
+		pthread_mutex_unlock(&(philo->data->forks_mutex[fork2]));
 		
 		return (TRUE);
 	}
 	else
 	{
-		pthread_mutex_unlock(&(philo->data->forks_mutex));
+		pthread_mutex_unlock(&(philo->data->forks_mutex[fork1]));
+		pthread_mutex_unlock(&(philo->data->forks_mutex[fork2]));
 		return (FALSE);
 	}
 }

@@ -12,7 +12,7 @@ bool	ft_philo_dead(t_philo *philo)
 		return (TRUE);
 	}
 	now = ft_timestamp();
-	if(now - philo->last_meal > philo->data->time_to_die)
+	if(now - philo->last_meal >= philo->data->time_to_die)
 	{
 		pthread_mutex_lock(&(philo->data->print_mutex));
 		printf("%ld Philosopher %d died last_meal_ms_ago: %ld\n", now, philo->nb, now - philo->last_meal);
