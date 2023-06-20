@@ -7,27 +7,27 @@ check if second fork is available with modulo: philosopher at index 0 gets fork
 usleep is programmed in microseconds, we do * 1000 to get the milliseconds */
 bool	ft_eat(t_philo *philo)
 {
-	int fork1;
-	int fork2;
+	int	fork1;
+	int	fork2;
 
 	fork1 = philo->nb - 1;
 	fork2 = philo->nb % philo->data->nb_philo;
 	pthread_mutex_lock(&(philo->data->forks_mutex[fork1]));
 	pthread_mutex_lock(&(philo->data->forks_mutex[fork2]));
-	if (philo->data->forks[fork1] == TRUE 
-			&& philo->data->forks[fork2] == TRUE && fork1 != fork2)
+	if (philo->data->forks[fork1] == TRUE
+		&& philo->data->forks[fork2] == TRUE && fork1 != fork2)
 	{
-		philo->data->forks[philo->nb - 1] = FALSE; 
+		philo->data->forks[philo->nb - 1] = FALSE;
 		philo->data->forks[philo->nb % philo->data->nb_philo] = FALSE;
 		pthread_mutex_unlock(&(philo->data->forks_mutex[fork1]));
 		pthread_mutex_unlock(&(philo->data->forks_mutex[fork2]));
 		pthread_mutex_lock(&(philo->data->print_mutex));
-		printf("%ld Philosopher %d has taken a fork\n", ft_timestamp(), philo->nb);
-		printf("%ld Philosopher %d has taken a fork\n", ft_timestamp(), philo->nb);
-		printf("%ld Philosopher %d is eating\n", ft_timestamp(), philo->nb);
+		printf("%ld Philosopher %d has taken a fork\n", ft_tstamp(), philo->nb);
+		printf("%ld Philosopher %d has taken a fork\n", ft_tstamp(), philo->nb);
+		printf("%ld Philosopher %d is eating\n", ft_tstamp(), philo->nb);
 		pthread_mutex_unlock(&(philo->data->print_mutex));
 		philo->state = EAT;
-		philo->last_meal = ft_timestamp();
+		philo->last_meal = ft_tstamp();
 		ft_suspend_process(philo->data, philo->data->time_to_eat);
 		philo->times_eaten += 1;
 		pthread_mutex_lock(&(philo->data->forks_mutex[fork1]));
@@ -36,7 +36,6 @@ bool	ft_eat(t_philo *philo)
 		philo->data->forks[philo->nb % philo->data->nb_philo] = TRUE;
 		pthread_mutex_unlock(&(philo->data->forks_mutex[fork1]));
 		pthread_mutex_unlock(&(philo->data->forks_mutex[fork2]));
-		
 		return (TRUE);
 	}
 	else
@@ -58,7 +57,7 @@ void	ft_sleep(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_unlock(&(philo->data->dead_mutex));
-	now = ft_timestamp();
+	now = ft_tstamp();
 	if (philo->state != SLEEP)
 	{
 		pthread_mutex_lock(&(philo->data->print_mutex));
@@ -74,7 +73,7 @@ void	ft_think(t_philo *philo)
 {
 	time_t	now;
 
-	now = ft_timestamp();
+	now = ft_tstamp();
 	if (philo->state != THINK)
 	{
 		pthread_mutex_lock(&(philo->data->print_mutex));

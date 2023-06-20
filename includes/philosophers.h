@@ -13,14 +13,14 @@
 # define TRUE 1
 # define FALSE 0
 
-typedef enum	e_state
+typedef enum e_state
 {
-	THINK 	= 0,
-	EAT 	= 1,
+	THINK	= 0,
+	EAT		= 1,
 	SLEEP	= 2
 }				t_state;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	pthread_t		thread;
 	time_t			last_meal;
@@ -30,7 +30,7 @@ typedef struct	s_philo
 	t_state			state;
 }					t_philo;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	int					nb_philo;
 	int					time_to_die;
@@ -70,7 +70,7 @@ void	ft_sleep(t_philo *philo);
 void	ft_think(t_philo *philo);
 
 //utils
-time_t	ft_timestamp(void);
+time_t	ft_tstamp(void);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_error_message(char *err);
 int		ft_atoi(const char *str);

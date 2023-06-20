@@ -27,7 +27,7 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-int		ft_isnum(char *str)
+int	ft_isnum(char *str)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ int		ft_isnum(char *str)
 
 bool	ft_check_is_nb(char **argv)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (argv[i])
@@ -58,8 +58,8 @@ bool	ft_check_is_nb(char **argv)
 	i = 1;
 	while (argv[i])
 	{
-		if ((ft_strlen(argv[i]) > 10) || (ft_strlen(argv[i]) == 10 
-					&& ft_strcmp(argv[i], "2147483647") >= 1))
+		if ((ft_strlen(argv[i]) > 10) || (ft_strlen(argv[i]) == 10
+				&& ft_strcmp(argv[i], "2147483647") >= 1))
 		{
 			ft_error_message(E_NUMB);
 			return (FALSE);

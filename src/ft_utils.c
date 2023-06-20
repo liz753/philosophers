@@ -1,20 +1,20 @@
 
 #include "../includes/philosophers.h"
 
-time_t   ft_timestamp(void)
+time_t	ft_tstamp(void)
 {
-    struct timeval    time_of_day;
+	struct timeval	time_of_day;
 
-    gettimeofday(&time_of_day, NULL);
-    return ((time_of_day.tv_sec * 1000) + (time_of_day.tv_usec / 1000));
+	gettimeofday (&time_of_day, NULL);
+	return ((time_of_day.tv_sec * 1000) + (time_of_day.tv_usec / 1000));
 }
 
 void	ft_suspend_process(t_data *data, time_t time)
 {
 	time_t	wecker;
 
-	wecker = ft_timestamp() + time;
-	while (ft_timestamp() < wecker && data->sim_end == FALSE)
+	wecker = ft_tstamp() + time;
+	while (ft_tstamp() < wecker && data->sim_end == FALSE)
 	{
 		usleep(100);
 	}
@@ -30,11 +30,6 @@ void	ft_putstr_fd(char *s, int fd)
 		write(fd, &s[i], 1);
 		i++;
 	}
-}
-
-void	ft_error_message(char *err)
-{
-	ft_putstr_fd(err, 2);
 }
 
 int	ft_isspace(char c)

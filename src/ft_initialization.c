@@ -3,10 +3,10 @@
 
 void	ft_init_mutex(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < data->nb_philo)
+	while (i < data->nb_philo)
 	{
 		pthread_mutex_init(&(data->forks_mutex[i]), NULL);
 		i++;
@@ -17,10 +17,10 @@ void	ft_init_mutex(t_data *data)
 
 void	ft_destroy_mutexes(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < data->nb_philo)
+	while (i < data->nb_philo)
 	{
 		pthread_mutex_destroy(&(data->forks_mutex[i]));
 		i++;
@@ -29,12 +29,12 @@ void	ft_destroy_mutexes(t_data *data)
 	pthread_mutex_destroy(&(data->dead_mutex));
 }
 
-void ft_init_forks(t_data *data)
+void	ft_init_forks(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < 200)
+	while (i < 200)
 	{
 		data->forks[i] = TRUE;
 		i++;

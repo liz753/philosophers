@@ -9,7 +9,8 @@ CFLAGS		=	-Wall -Werror -Wextra -g
 RM			= rm -f 
 
 SRC			= ./src/main.c ./src/ft_initialization.c ./src/ft_parsing.c \
-				./src/ft_philosophers.c ./src/ft_routine.c ./src/ft_utils.c 
+				./src/ft_philosophers.c ./src/ft_routine.c ./src/ft_utils.c \
+				./src/ft_error_message.c 
 
 OBJS = ${SRC:%.c=%.o}
 

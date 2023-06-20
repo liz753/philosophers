@@ -11,11 +11,12 @@ bool	ft_philo_dead(t_philo *philo)
 		pthread_mutex_unlock(&(philo->data->dead_mutex));
 		return (TRUE);
 	}
-	now = ft_timestamp();
-	if(now - philo->last_meal >= philo->data->time_to_die)
+	now = ft_tstamp();
+	if (now - philo->last_meal >= philo->data->time_to_die)
 	{
 		pthread_mutex_lock(&(philo->data->print_mutex));
-		printf("%ld Philosopher %d died last_meal_ms_ago: %ld\n", now, philo->nb, now - philo->last_meal);
+		printf("%ld Philosopher %d died last_meal_ms_ago: %ld\n",
+			now, philo->nb, now - philo->last_meal);
 		pthread_mutex_unlock(&(philo->data->print_mutex));
 		philo->data->sim_end = TRUE;
 		pthread_mutex_unlock(&(philo->data->dead_mutex));
@@ -27,9 +28,11 @@ bool	ft_philo_dead(t_philo *philo)
 
 bool	ft_philo_full(t_philo *philo)
 {
-	if (philo->times_eaten >= philo->data->nb_must_eat 
-			&& philo->data->nb_must_eat >= 0)
+	if (philo->times_eaten >= philo->data->nb_must_eat
+		&& philo->data->nb_must_eat >= 0)
+	{
 		return (TRUE);
+	}
 	return (FALSE);
 }
 
@@ -37,8 +40,8 @@ void	*ft_routine(void *arg)
 {
 	t_philo		*philo;
 
-	philo = (t_philo *)arg;
-	while(ft_philo_dead(philo) == FALSE && ft_philo_full(philo) == FALSE)
+	philo = (t_philo *) arg;
+	while (ft_philo_dead(philo) == FALSE && ft_philo_full(philo) == FALSE)
 	{
 		if (ft_eat(philo) == TRUE)
 		{
@@ -69,7 +72,7 @@ void	ft_create_philos(t_data *data)
 		data->philos[i].data = data;
 		if (pthread_create(&(data->philos[i].thread), NULL,
 				&ft_routine, &(data->philos[i])) != 0)
-					ft_error_message(E_THREAD);
+			ft_error_message(E_THREAD);
 		i++;
 	}
 	i = 0;
@@ -79,5 +82,4 @@ void	ft_create_philos(t_data *data)
 			return ;
 		i++;
 	}
-	
 }
