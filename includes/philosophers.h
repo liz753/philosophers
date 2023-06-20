@@ -75,5 +75,6 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_error_message(char *err);
 int		ft_atoi(const char *str);
 int		ft_isspace(char c);
+void	ft_suspend_process(t_data *data, time_t time);
 
 #endif

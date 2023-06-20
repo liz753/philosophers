@@ -9,6 +9,17 @@ time_t   ft_timestamp(void)
     return ((time_of_day.tv_sec * 1000) + (time_of_day.tv_usec / 1000));
 }
 
+void	ft_suspend_process(t_data *data, time_t time)
+{
+	time_t	wecker;
+
+	wecker = ft_timestamp() + time;
+	while (ft_timestamp() < wecker && data->sim_end == FALSE)
+	{
+		usleep(100);
+	}
+}
+
 void	ft_putstr_fd(char *s, int fd)
 {
 	int	i;

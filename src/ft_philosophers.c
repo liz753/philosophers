@@ -15,7 +15,7 @@ bool	ft_philo_dead(t_philo *philo)
 	if(now - philo->last_meal > philo->data->time_to_die)
 	{
 		pthread_mutex_lock(&(philo->data->print_mutex));
-		printf("%ld Philosopher %d died. last_meal_ms_ago: %ld\n", now, philo->nb, now - philo->last_meal);
+		printf("%ld Philosopher %d died last_meal_ms_ago: %ld\n", now, philo->nb, now - philo->last_meal);
 		pthread_mutex_unlock(&(philo->data->print_mutex));
 		philo->data->sim_end = TRUE;
 		pthread_mutex_unlock(&(philo->data->dead_mutex));
@@ -41,7 +41,15 @@ void	*ft_routine(void *arg)
 	while(ft_philo_dead(philo) == FALSE && ft_philo_full(philo) == FALSE)
 	{
 		if (ft_eat(philo) == TRUE)
-			ft_sleep(philo);
+		{
+			pthread_mutex_lock(&(philo->data->dead_mutex));
+			if (philo->data->sim_end == FALSE)
+			{
+				pthread_mutex_unlock(&(philo->data->dead_mutex));
+				ft_sleep(philo);
+			}
+			pthread_mutex_unlock(&(philo->data->dead_mutex));
+		}
 		else
 			ft_think(philo);
 	}
