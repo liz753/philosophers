@@ -13,7 +13,6 @@ int	main(int argc, char **argv)
 		pthread_mutex_lock(&(data.dead_mutex));
 		data.sim_end = FALSE;
 		pthread_mutex_unlock(&(data.dead_mutex));
-		ft_init_forks(&data);
 		data.sim_start = ft_tstamp();
 		ft_create_philos(&data);
 		ft_destroy_mutexes(&data);

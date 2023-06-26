@@ -10,30 +10,32 @@ bool	ft_eat(t_philo *philo)
 	int	fork1;
 	int	fork2;
 
-	fork1 = philo->nb - 1;
-	fork2 = philo->nb % philo->data->nb_philo;
-	pthread_mutex_lock(&(philo->data->forks_mutex[fork1]));
-	pthread_mutex_lock(&(philo->data->forks_mutex[fork2]));
-	if (philo->data->forks[fork1] == TRUE
-		&& philo->data->forks[fork2] == TRUE && fork1 != fork2)
+	if (philo->nb % 2 == 0)
 	{
-		philo->data->forks[philo->nb - 1] = FALSE;
-		philo->data->forks[philo->nb % philo->data->nb_philo] = FALSE;
-		pthread_mutex_unlock(&(philo->data->forks_mutex[fork1]));
-		pthread_mutex_unlock(&(philo->data->forks_mutex[fork2]));
-		pthread_mutex_lock(&(philo->data->print_mutex));
-		printf("%ld Philosopher %d has taken a fork\n", ft_tstamp(), philo->nb);
-		printf("%ld Philosopher %d has taken a fork\n", ft_tstamp(), philo->nb);
-		printf("%ld Philosopher %d is eating\n", ft_tstamp(), philo->nb);
-		pthread_mutex_unlock(&(philo->data->print_mutex));
+		fork1 = philo->nb - 1;
+		fork2 = philo->nb % philo->data->nb_philo;
+	}
+	else
+	{
+		fork1 = philo->nb % philo->data->nb_philo;
+		fork2 = philo->nb - 1;
+	}
+	if (ft_philo_dead(philo) == TRUE)
+		return (FALSE);
+	ft_take_fork(fork1, philo);
+	if (fork1 != fork2)
+	{
+		/* if (ft_philo_dead(philo) == TRUE)
+		{
+			pthread_mutex_unlock(&(philo->data->forks_mutex[fork1]));
+			return (FALSE);
+		} */
+		ft_take_fork(fork2, philo);
+		ft_print("is eating", philo);
 		philo->state = EAT;
 		philo->last_meal = ft_tstamp();
-		ft_suspend_process(philo->data, philo->data->time_to_eat);
+		ft_suspend_process(philo, philo->data->time_to_eat);
 		philo->times_eaten += 1;
-		pthread_mutex_lock(&(philo->data->forks_mutex[fork1]));
-		pthread_mutex_lock(&(philo->data->forks_mutex[fork2]));
-		philo->data->forks[philo->nb - 1] = TRUE;
-		philo->data->forks[philo->nb % philo->data->nb_philo] = TRUE;
 		pthread_mutex_unlock(&(philo->data->forks_mutex[fork1]));
 		pthread_mutex_unlock(&(philo->data->forks_mutex[fork2]));
 		return (TRUE);
@@ -41,15 +43,33 @@ bool	ft_eat(t_philo *philo)
 	else
 	{
 		pthread_mutex_unlock(&(philo->data->forks_mutex[fork1]));
-		pthread_mutex_unlock(&(philo->data->forks_mutex[fork2]));
+		ft_suspend_process(philo, philo->data->time_to_die);
 		return (FALSE);
 	}
 }
 
-void	ft_sleep(t_philo *philo)
+bool	ft_sleep(t_philo *philo)
+{
+	pthread_mutex_lock(&(philo->data->dead_mutex));
+	if (philo->data->sim_end == TRUE)
+	{
+		pthread_mutex_unlock(&(philo->data->dead_mutex));
+		return (FALSE);
+	}
+	pthread_mutex_unlock(&(philo->data->dead_mutex));
+	ft_print("is sleeping", philo);
+	philo->state = SLEEP;
+	//time_t startsleeping = ft_tstamp();
+	ft_suspend_process(philo, philo->data->time_to_sleep);
+	//printf("%d time spent sleeping:%ld\n", philo->nb, ft_tstamp() - startsleeping);
+	return (TRUE);
+}
+
+void	ft_think(t_philo *philo)
 {
 	time_t	now;
 
+	now = ft_tstamp();
 	pthread_mutex_lock(&(philo->data->dead_mutex));
 	if (philo->data->sim_end == TRUE)
 	{
@@ -57,28 +77,13 @@ void	ft_sleep(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_unlock(&(philo->data->dead_mutex));
-	now = ft_tstamp();
-	if (philo->state != SLEEP)
-	{
-		pthread_mutex_lock(&(philo->data->print_mutex));
-		printf("%ld Philosopher %d is sleeping\n", now, philo->nb);
-		pthread_mutex_unlock(&(philo->data->print_mutex));
-	}
-	philo->state = SLEEP;
-	ft_suspend_process(philo->data, philo->data->time_to_sleep);
+	if (philo->state != THINK)
+		ft_print("is thinking", philo);
+	philo->state = THINK;
 }
 
-// think: penser à un calcul qui laisse la chance aux autres 
-void	ft_think(t_philo *philo)
+void ft_take_fork(int fork_index, t_philo *philo)
 {
-	time_t	now;
-
-	now = ft_tstamp();
-	if (philo->state != THINK)
-	{
-		pthread_mutex_lock(&(philo->data->print_mutex));
-		printf("%ld Philosopher %d is thinking\n", now, philo->nb);
-		pthread_mutex_unlock(&(philo->data->print_mutex));
-	}
-	philo->state = THINK;
+	pthread_mutex_lock(&(philo->data->forks_mutex[fork_index]));
+	ft_print("has taken a fork", philo);
 }

@@ -9,14 +9,30 @@ time_t	ft_tstamp(void)
 	return ((time_of_day.tv_sec * 1000) + (time_of_day.tv_usec / 1000));
 }
 
-void	ft_suspend_process(t_data *data, time_t time)
+void	ft_suspend_process(t_philo *philo, time_t time)
 {
-	time_t	wecker;
-
-	wecker = ft_tstamp() + time;
-	while (ft_tstamp() < wecker && data->sim_end == FALSE)
+	time_t	alarm_clock;
+	alarm_clock = ft_tstamp() + time;
+	long slept_for = 0;
+	while (!ft_suspend_dead(philo) && ft_tstamp() < alarm_clock)
 	{
+		struct timeval before_usleep;
+		struct timeval after_usleep;
+		gettimeofday(&before_usleep, NULL);
 		usleep(100);
+		gettimeofday(&after_usleep, NULL);
+		slept_for += ((after_usleep.tv_sec - before_usleep.tv_sec) * 1000000) + (after_usleep.tv_usec - before_usleep.tv_usec);
+		if(slept_for >= time * 1000) {
+			printf("slept for %ld\n", slept_for);
+			break;
+		}
+	}
+	time_t now;
+	now = ft_tstamp();
+	if(now > alarm_clock)
+	{
+		//usleep slept for too long, correct it by updating last meal
+		philo->last_meal += (now - alarm_clock);
 	}
 }
 

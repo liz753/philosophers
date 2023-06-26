@@ -39,7 +39,6 @@ typedef struct s_data
 	int					nb_must_eat;
 	struct s_philo		philos[200];
 	time_t				sim_start;
-	bool				forks[200];
 	pthread_mutex_t		forks_mutex[200];
 	pthread_mutex_t		print_mutex;
 	pthread_mutex_t		dead_mutex;
@@ -62,19 +61,26 @@ void	*ft_routine(void *arg);
 //initialization
 void	ft_init_mutex(t_data *data);
 void	ft_destroy_mutexes(t_data *data);
-void	ft_init_forks(t_data *data);
 
 //routine
 bool	ft_eat(t_philo *philo);
-void	ft_sleep(t_philo *philo);
+bool	ft_sleep(t_philo *philo);
 void	ft_think(t_philo *philo);
+void	ft_take_fork(int fork_index, t_philo *philo);
 
 //utils
 time_t	ft_tstamp(void);
 void	ft_putstr_fd(char *s, int fd);
-void	ft_error_message(char *err);
 int		ft_atoi(const char *str);
 int		ft_isspace(char c);
-void	ft_suspend_process(t_data *data, time_t time);
+void	ft_suspend_process(t_philo *philo, time_t time);
+
+//print
+void	ft_error_message(char *err);
+void	ft_print(char *message, t_philo *philo);
+void	ft_print_dead(char *message, t_philo *philo);
+bool	ft_dead_for_print(t_philo *philo);
+
+bool	ft_suspend_dead(t_philo *philo);
 
 #endif

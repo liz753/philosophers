@@ -28,15 +28,3 @@ void	ft_destroy_mutexes(t_data *data)
 	pthread_mutex_destroy(&(data->print_mutex));
 	pthread_mutex_destroy(&(data->dead_mutex));
 }
-
-void	ft_init_forks(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < 200)
-	{
-		data->forks[i] = TRUE;
-		i++;
-	}
-}
