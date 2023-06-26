@@ -45,6 +45,9 @@ typedef struct s_data
 	bool				sim_end;
 }						t_data;
 
+//main
+void	ft_check_alive(t_data *data);
+
 //parsing
 bool	ft_parsing(int argc, char **argv, t_data *data);
 int		ft_isnum(char *str);
@@ -54,6 +57,7 @@ int		ft_strcmp(char *s1, char *s2);
 
 //philosophers
 void	ft_create_philos(t_data *data);
+void	ft_join_threads(t_data *data);
 bool	ft_philo_dead(t_philo *philo);
 bool	ft_philo_full(t_philo *philo);
 void	*ft_routine(void *arg);
@@ -64,6 +68,7 @@ void	ft_destroy_mutexes(t_data *data);
 
 //routine
 bool	ft_eat(t_philo *philo);
+void	ft_assign_forks(t_philo *philo, int *fork1, int *fork2);
 bool	ft_sleep(t_philo *philo);
 void	ft_think(t_philo *philo);
 void	ft_take_fork(int fork_index, t_philo *philo);

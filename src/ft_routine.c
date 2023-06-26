@@ -1,5 +1,18 @@
-
 #include "../includes/philosophers.h"
+
+void	ft_assign_forks(t_philo *philo, int *fork1, int *fork2)
+{
+	if (philo->nb % 2 == 0)
+	{
+		*fork1 = philo->nb - 1;
+		*fork2 = philo->nb % philo->data->nb_philo;
+	}
+	else
+	{
+		*fork1 = philo->nb % philo->data->nb_philo;
+		*fork2 = philo->nb - 1;
+	}
+}
 
 /* TRUE = fork is available;
 check if second fork is available with modulo: philosopher at index 0 gets fork 
@@ -10,16 +23,7 @@ bool	ft_eat(t_philo *philo)
 	int	fork1;
 	int	fork2;
 
-	if (philo->nb % 2 == 0)
-	{
-		fork1 = philo->nb - 1;
-		fork2 = philo->nb % philo->data->nb_philo;
-	}
-	else
-	{
-		fork1 = philo->nb % philo->data->nb_philo;
-		fork2 = philo->nb - 1;
-	}
+	ft_assign_forks(philo, &fork1, &fork2);
 	if (ft_philo_dead(philo) == TRUE)
 		return (FALSE);
 	ft_take_fork(fork1, philo);
@@ -59,9 +63,7 @@ bool	ft_sleep(t_philo *philo)
 	pthread_mutex_unlock(&(philo->data->dead_mutex));
 	ft_print("is sleeping", philo);
 	philo->state = SLEEP;
-	//time_t startsleeping = ft_tstamp();
 	ft_suspend_process(philo, philo->data->time_to_sleep);
-	//printf("%d time spent sleeping:%ld\n", philo->nb, ft_tstamp() - startsleeping);
 	return (TRUE);
 }
 
@@ -82,7 +84,7 @@ void	ft_think(t_philo *philo)
 	philo->state = THINK;
 }
 
-void ft_take_fork(int fork_index, t_philo *philo)
+void	ft_take_fork(int fork_index, t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->data->forks_mutex[fork_index]));
 	ft_print("has taken a fork", philo);

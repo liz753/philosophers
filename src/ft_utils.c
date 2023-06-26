@@ -11,28 +11,22 @@ time_t	ft_tstamp(void)
 
 void	ft_suspend_process(t_philo *philo, time_t time)
 {
-	time_t	alarm_clock;
+	time_t			alarm_clock;
+	long			slept_for;
+	struct timeval	before_usleep;
+	struct timeval	after_usleep;
+
 	alarm_clock = ft_tstamp() + time;
-	long slept_for = 0;
+	slept_for = 0;
 	while (!ft_suspend_dead(philo) && ft_tstamp() < alarm_clock)
 	{
-		struct timeval before_usleep;
-		struct timeval after_usleep;
 		gettimeofday(&before_usleep, NULL);
 		usleep(100);
 		gettimeofday(&after_usleep, NULL);
-		slept_for += ((after_usleep.tv_sec - before_usleep.tv_sec) * 1000000) + (after_usleep.tv_usec - before_usleep.tv_usec);
-		if(slept_for >= time * 1000) {
-			printf("slept for %ld\n", slept_for);
-			break;
-		}
-	}
-	time_t now;
-	now = ft_tstamp();
-	if(now > alarm_clock)
-	{
-		//usleep slept for too long, correct it by updating last meal
-		philo->last_meal += (now - alarm_clock);
+		slept_for += ((after_usleep.tv_sec - before_usleep.tv_sec) * 1000000)
+			+ (after_usleep.tv_usec - before_usleep.tv_usec);
+		if (slept_for >= time * 1000)
+			break ;
 	}
 }
 
