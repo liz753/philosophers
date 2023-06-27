@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_routine.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lfrank <lfrank@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/27 15:58:49 by lfrank            #+#    #+#             */
+/*   Updated: 2023/06/27 17:03:23 by lfrank           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philosophers.h"
 
 void	ft_assign_forks(t_philo *philo, int *fork1, int *fork2)
@@ -24,11 +36,11 @@ bool	ft_eat(t_philo *philo)
 		ft_take_fork(fork2, philo);
 		ft_print("is eating", philo);
 		philo->state = EAT;
-		pthread_mutex_lock(&(philo->data->last_meal_mutex));
-		philo->last_meal = ft_tstamp();
-		pthread_mutex_unlock(&(philo->data->last_meal_mutex));
+		ft_last_meal(philo);
 		ft_suspend_process(philo, philo->data->time_to_eat);
+		pthread_mutex_lock(&(philo->data->last_meal_mutex));
 		philo->times_eaten += 1;
+		pthread_mutex_unlock(&(philo->data->last_meal_mutex));
 		pthread_mutex_unlock(&(philo->data->forks_mutex[fork1]));
 		pthread_mutex_unlock(&(philo->data->forks_mutex[fork2]));
 		return (TRUE);

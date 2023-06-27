@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lfrank <lfrank@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/27 15:58:18 by lfrank            #+#    #+#             */
+/*   Updated: 2023/06/27 17:02:57 by lfrank           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
@@ -57,8 +68,6 @@ size_t	ft_strlen(const char *s);
 int		ft_strcmp(char *s1, char *s2);
 
 //philosophers
-void	ft_create_philos(t_data *data);
-void	ft_join_threads(t_data *data);
 bool	ft_philo_dead(t_philo *philo);
 bool	ft_philo_full(t_philo *philo);
 void	*ft_routine(void *arg);
@@ -66,6 +75,9 @@ void	*ft_routine(void *arg);
 //initialization
 void	ft_init_mutex(t_data *data);
 void	ft_destroy_mutexes(t_data *data);
+void	ft_last_meal(t_philo *philo);
+void	ft_create_philos(t_data *data);
+void	ft_join_threads(t_data *data);
 
 //routine
 bool	ft_eat(t_philo *philo);

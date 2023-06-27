@@ -1,13 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_philosophers.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lfrank <lfrank@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/27 15:58:39 by lfrank            #+#    #+#             */
+/*   Updated: 2023/06/27 16:53:50 by lfrank           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
 bool	ft_suspend_dead(t_philo *philo)
 {
-	time_t time_since_lastmeal;
+	time_t	time_since_lastmeal;
 
-	pthread_mutex_lock(&(philo->data->last_meal_mutex));
 	time_since_lastmeal = ft_tstamp() - philo->last_meal;
-	pthread_mutex_unlock(&(philo->data->last_meal_mutex));
 	pthread_mutex_lock(&(philo->data->dead_mutex));
 	if (philo->data->sim_end == TRUE)
 	{
@@ -26,11 +35,9 @@ bool	ft_suspend_dead(t_philo *philo)
 
 bool	ft_philo_dead(t_philo *philo)
 {
-	time_t time_since_lastmeal;
+	time_t	time_since_lastmeal;
 
-	pthread_mutex_lock(&(philo->data->last_meal_mutex));
 	time_since_lastmeal = ft_tstamp() - philo->last_meal;
-	pthread_mutex_unlock(&(philo->data->last_meal_mutex));
 	pthread_mutex_lock(&(philo->data->dead_mutex));
 	if (philo->data->sim_end == TRUE)
 	{
@@ -50,11 +57,14 @@ bool	ft_philo_dead(t_philo *philo)
 
 bool	ft_philo_full(t_philo *philo)
 {
-	if (philo->times_eaten >= philo->data->nb_must_eat
-		&& philo->data->nb_must_eat >= 0)
+	pthread_mutex_lock(&(philo->data->last_meal_mutex));
+	if (philo->data->nb_must_eat >= 0 
+		&& philo->times_eaten >= philo->data->nb_must_eat)
 	{
+		pthread_mutex_unlock(&(philo->data->last_meal_mutex));
 		return (TRUE);
 	}
+	pthread_mutex_unlock(&(philo->data->last_meal_mutex));
 	return (FALSE);
 }
 

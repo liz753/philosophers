@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_initialization.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lfrank <lfrank@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/27 15:58:06 by lfrank            #+#    #+#             */
+/*   Updated: 2023/06/27 16:27:06 by lfrank           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
@@ -38,6 +49,7 @@ void	ft_create_philos(t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
+		data->philos[i].data = data;
 		data->philos[i].nb = i + 1;
 		pthread_mutex_lock(&data->last_meal_mutex);
 		data->philos[i].last_meal = data->sim_start;
@@ -62,4 +74,11 @@ void	ft_join_threads(t_data *data)
 			return ;
 		i++;
 	}
+}
+
+void	ft_last_meal(t_philo *philo)
+{
+	pthread_mutex_lock(&(philo->data->last_meal_mutex));
+	philo->last_meal = ft_tstamp();
+	pthread_mutex_unlock(&(philo->data->last_meal_mutex));
 }

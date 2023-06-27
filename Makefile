@@ -1,10 +1,21 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lfrank <lfrank@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/06/27 15:59:06 by lfrank            #+#    #+#              #
+#    Updated: 2023/06/27 16:48:10 by lfrank           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 NAME 		= philo
 
 CC			= gcc
 
-CFLAGS		=	-Wall -Werror -Wextra -g -pthread
-#CFLAGS = -Wall -Werror -Wextra -fsanitize=thread -g
+#CFLAGS		=	-Wall -Werror -Wextra -g -pthread
+CFLAGS = -Wall -Werror -Wextra -fsanitize=thread -g
 
 RM			= rm -f 
 
