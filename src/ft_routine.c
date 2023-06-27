@@ -2,16 +2,8 @@
 
 void	ft_assign_forks(t_philo *philo, int *fork1, int *fork2)
 {
-	if (philo->nb % 2 == 0)
-	{
-		*fork1 = philo->nb - 1;
-		*fork2 = philo->nb % philo->data->nb_philo;
-	}
-	else
-	{
-		*fork1 = philo->nb % philo->data->nb_philo;
-		*fork2 = philo->nb - 1;
-	}
+	*fork1 = philo->nb - 1;
+	*fork2 = philo->nb % philo->data->nb_philo;
 }
 
 /* TRUE = fork is available;
