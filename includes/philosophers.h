@@ -42,6 +42,7 @@ typedef struct s_data
 	pthread_mutex_t		forks_mutex[200];
 	pthread_mutex_t		print_mutex;
 	pthread_mutex_t		dead_mutex;
+	pthread_mutex_t		last_meal_mutex;
 	bool				sim_end;
 }						t_data;
 

@@ -3,13 +3,18 @@
 
 bool	ft_suspend_dead(t_philo *philo)
 {
+	time_t time_since_lastmeal;
+
+	pthread_mutex_lock(&(philo->data->last_meal_mutex));
+	time_since_lastmeal = ft_tstamp() - philo->last_meal;
+	pthread_mutex_unlock(&(philo->data->last_meal_mutex));
 	pthread_mutex_lock(&(philo->data->dead_mutex));
 	if (philo->data->sim_end == TRUE)
 	{
 		pthread_mutex_unlock(&(philo->data->dead_mutex));
 		return (TRUE);
 	}
-	if ((ft_tstamp() - philo->last_meal) >= philo->data->time_to_die)
+	if (time_since_lastmeal >= philo->data->time_to_die)
 	{
 		philo->data->sim_end = TRUE;
 		pthread_mutex_unlock(&(philo->data->dead_mutex));
@@ -21,13 +26,18 @@ bool	ft_suspend_dead(t_philo *philo)
 
 bool	ft_philo_dead(t_philo *philo)
 {
+	time_t time_since_lastmeal;
+
+	pthread_mutex_lock(&(philo->data->last_meal_mutex));
+	time_since_lastmeal = ft_tstamp() - philo->last_meal;
+	pthread_mutex_unlock(&(philo->data->last_meal_mutex));
 	pthread_mutex_lock(&(philo->data->dead_mutex));
 	if (philo->data->sim_end == TRUE)
 	{
 		pthread_mutex_unlock(&(philo->data->dead_mutex));
 		return (TRUE);
 	}
-	if ((ft_tstamp() - philo->last_meal) >= philo->data->time_to_die)
+	if (time_since_lastmeal >= philo->data->time_to_die)
 	{
 		ft_print_dead("died", philo);
 		philo->data->sim_end = TRUE;

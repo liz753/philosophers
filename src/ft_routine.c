@@ -29,15 +29,12 @@ bool	ft_eat(t_philo *philo)
 	ft_take_fork(fork1, philo);
 	if (fork1 != fork2)
 	{
-		/* if (ft_philo_dead(philo) == TRUE)
-		{
-			pthread_mutex_unlock(&(philo->data->forks_mutex[fork1]));
-			return (FALSE);
-		} */
 		ft_take_fork(fork2, philo);
 		ft_print("is eating", philo);
 		philo->state = EAT;
+		pthread_mutex_lock(&(philo->data->last_meal_mutex));
 		philo->last_meal = ft_tstamp();
+		pthread_mutex_unlock(&(philo->data->last_meal_mutex));
 		ft_suspend_process(philo, philo->data->time_to_eat);
 		philo->times_eaten += 1;
 		pthread_mutex_unlock(&(philo->data->forks_mutex[fork1]));

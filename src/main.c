@@ -8,15 +8,20 @@ void	ft_check_alive(t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
+		if (ft_philo_full(&(data->philos[i])))
+			return ;
+		pthread_mutex_lock(&(data->last_meal_mutex));
 		if (ft_tstamp() - data->philos[i].last_meal
 			> data->time_to_die)
 		{
-			ft_print_dead("died", &(data->philos[i]));
+			pthread_mutex_unlock(&(data->last_meal_mutex));
 			pthread_mutex_lock(&(data->dead_mutex));
 			data->sim_end = TRUE;
 			pthread_mutex_unlock(&(data->dead_mutex));
+			ft_print_dead("died", &(data->philos[i]));
 			return ;
 		}
+		pthread_mutex_unlock(&(data->last_meal_mutex));
 		i++;
 		if (i == data->nb_philo)
 			i = 0;

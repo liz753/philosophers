@@ -13,6 +13,7 @@ void	ft_init_mutex(t_data *data)
 	}
 	pthread_mutex_init(&(data->print_mutex), NULL);
 	pthread_mutex_init(&(data->dead_mutex), NULL);
+	pthread_mutex_init(&(data->last_meal_mutex), NULL);
 }
 
 void	ft_destroy_mutexes(t_data *data)
@@ -27,6 +28,7 @@ void	ft_destroy_mutexes(t_data *data)
 	}
 	pthread_mutex_destroy(&(data->print_mutex));
 	pthread_mutex_destroy(&(data->dead_mutex));
+	pthread_mutex_destroy(&(data->last_meal_mutex));
 }
 
 void	ft_create_philos(t_data *data)
@@ -37,7 +39,9 @@ void	ft_create_philos(t_data *data)
 	while (i < data->nb_philo)
 	{
 		data->philos[i].nb = i + 1;
+		pthread_mutex_lock(&data->last_meal_mutex);
 		data->philos[i].last_meal = data->sim_start;
+		pthread_mutex_unlock(&data->last_meal_mutex);
 		data->philos[i].times_eaten = 0;
 		data->philos[i].data = data;
 		if (pthread_create(&(data->philos[i].thread), NULL,
