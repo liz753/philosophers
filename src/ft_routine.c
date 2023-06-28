@@ -38,9 +38,7 @@ bool	ft_eat(t_philo *philo)
 		philo->state = EAT;
 		ft_last_meal(philo);
 		ft_suspend_process(philo, philo->data->time_to_eat);
-		pthread_mutex_lock(&(philo->data->last_meal_mutex));
-		philo->times_eaten += 1;
-		pthread_mutex_unlock(&(philo->data->last_meal_mutex));
+		ft_update_times_eaten(philo);
 		pthread_mutex_unlock(&(philo->data->forks_mutex[fork1]));
 		pthread_mutex_unlock(&(philo->data->forks_mutex[fork2]));
 		return (TRUE);

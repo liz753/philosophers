@@ -68,9 +68,11 @@ size_t	ft_strlen(const char *s);
 int		ft_strcmp(char *s1, char *s2);
 
 //philosophers
+bool	ft_suspend_dead(t_philo *philo);
 bool	ft_philo_dead(t_philo *philo);
 bool	ft_philo_full(t_philo *philo);
 void	*ft_routine(void *arg);
+void	ft_update_times_eaten(t_philo *philo);
 
 //initialization
 void	ft_init_mutex(t_data *data);
@@ -98,7 +100,5 @@ void	ft_error_message(char *err);
 void	ft_print(char *message, t_philo *philo);
 void	ft_print_dead(char *message, t_philo *philo);
 bool	ft_dead_for_print(t_philo *philo);
-
-bool	ft_suspend_dead(t_philo *philo);
 
 #endif

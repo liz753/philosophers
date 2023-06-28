@@ -58,7 +58,7 @@ bool	ft_philo_dead(t_philo *philo)
 bool	ft_philo_full(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->data->last_meal_mutex));
-	if (philo->data->nb_must_eat >= 0 
+	if (philo->data->nb_must_eat >= 0
 		&& philo->times_eaten >= philo->data->nb_must_eat)
 	{
 		pthread_mutex_unlock(&(philo->data->last_meal_mutex));
@@ -84,4 +84,11 @@ void	*ft_routine(void *arg)
 		}
 	}
 	return (NULL);
+}
+
+void	ft_update_times_eaten(t_philo *philo)
+{
+	pthread_mutex_lock(&(philo->data->last_meal_mutex));
+	philo->times_eaten += 1;
+	pthread_mutex_unlock(&(philo->data->last_meal_mutex));
 }
