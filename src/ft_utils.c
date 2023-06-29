@@ -20,7 +20,7 @@ time_t	ft_tstamp(void)
 	return ((time_of_day.tv_sec * 1000) + (time_of_day.tv_usec / 1000));
 }
 
-void	ft_suspend_process(t_philo *philo, time_t time)
+void	ft_suspend_thread(t_philo *philo, time_t time)
 {
 	time_t			alarm_clock;
 	long			slept_for;

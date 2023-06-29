@@ -55,7 +55,6 @@ void	ft_create_philos(t_data *data)
 		data->philos[i].last_meal = data->sim_start;
 		pthread_mutex_unlock(&data->last_meal_mutex);
 		data->philos[i].times_eaten = 0;
-		data->philos[i].data = data;
 		if (pthread_create(&(data->philos[i].thread), NULL,
 				&ft_routine, &(data->philos[i])) != 0)
 			ft_error_message(E_THREAD);

@@ -93,12 +93,13 @@ time_t	ft_tstamp(void);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_atoi(const char *str);
 int		ft_isspace(char c);
-void	ft_suspend_process(t_philo *philo, time_t time);
+void	ft_suspend_thread(t_philo *philo, time_t time);
 
 //print
 void	ft_error_message(char *err);
 void	ft_print(char *message, t_philo *philo);
 void	ft_print_dead(char *message, t_philo *philo);
 bool	ft_dead_for_print(t_philo *philo);
+
 
 #endif

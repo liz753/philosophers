@@ -80,7 +80,7 @@ bool	ft_check_is_nb(char **argv)
 	return (TRUE);
 }
 
-/* if there is sixth no argument (must eat x times), we set nb_must_eat to -1
+/* if there is no sixth argument (must eat x times), we set nb_must_eat to -1
 it will tell the program in ft_philo_full that the philosopher 
 is never full */
 bool	ft_parsing(int argc, char **argv, t_data *data)

@@ -18,10 +18,8 @@ void	ft_assign_forks(t_philo *philo, int *fork1, int *fork2)
 	*fork2 = philo->nb % philo->data->nb_philo;
 }
 
-/* TRUE = fork is available;
-check if second fork is available with modulo: philosopher at index 0 gets fork 
-0 and 1, last philosopher gets last fork and first fork;
-usleep is programmed in microseconds, we do * 1000 to get the milliseconds */
+/* check if second fork is available with modulo: philosopher at index 0 gets 
+fork 0 and 1, last philosopher gets last fork and first fork */
 bool	ft_eat(t_philo *philo)
 {
 	int	fork1;
@@ -37,7 +35,7 @@ bool	ft_eat(t_philo *philo)
 		ft_print("is eating", philo);
 		philo->state = EAT;
 		ft_last_meal(philo);
-		ft_suspend_process(philo, philo->data->time_to_eat);
+		ft_suspend_thread(philo, philo->data->time_to_eat);
 		ft_update_times_eaten(philo);
 		pthread_mutex_unlock(&(philo->data->forks_mutex[fork1]));
 		pthread_mutex_unlock(&(philo->data->forks_mutex[fork2]));
@@ -46,7 +44,7 @@ bool	ft_eat(t_philo *philo)
 	else
 	{
 		pthread_mutex_unlock(&(philo->data->forks_mutex[fork1]));
-		ft_suspend_process(philo, philo->data->time_to_die);
+		ft_suspend_thread(philo, philo->data->time_to_die);
 		return (FALSE);
 	}
 }
@@ -62,7 +60,7 @@ bool	ft_sleep(t_philo *philo)
 	pthread_mutex_unlock(&(philo->data->dead_mutex));
 	ft_print("is sleeping", philo);
 	philo->state = SLEEP;
-	ft_suspend_process(philo, philo->data->time_to_sleep);
+	ft_suspend_thread(philo, philo->data->time_to_sleep);
 	return (TRUE);
 }
 
