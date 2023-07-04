@@ -6,7 +6,7 @@
 /*   By: lfrank <lfrank@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:58:39 by lfrank            #+#    #+#             */
-/*   Updated: 2023/06/27 16:53:50 by lfrank           ###   ########.fr       */
+/*   Updated: 2023/07/04 10:25:13 by lfrank           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ bool	ft_philo_dead(t_philo *philo)
 	}
 	if (time_since_lastmeal >= philo->data->time_to_die)
 	{
-		ft_print_dead("died", philo);
 		philo->data->sim_end = TRUE;
 		pthread_mutex_unlock(&(philo->data->dead_mutex));
 		return (TRUE);
