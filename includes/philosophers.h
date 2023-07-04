@@ -6,7 +6,7 @@
 /*   By: lfrank <lfrank@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:58:18 by lfrank            #+#    #+#             */
-/*   Updated: 2023/06/27 17:02:57 by lfrank           ###   ########.fr       */
+/*   Updated: 2023/06/29 14:48:15 by lfrank           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,5 @@ void	ft_error_message(char *err);
 void	ft_print(char *message, t_philo *philo);
 void	ft_print_dead(char *message, t_philo *philo);
 bool	ft_dead_for_print(t_philo *philo);
-
 
 #endif
