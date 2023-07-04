@@ -6,7 +6,7 @@
 
 ## Table of Contents
 
-* [How to use the Program] (#how-to-use-the-program)
+* [How to use the Program](#how-to-use-the-program)
 * [Project Overview](#project-overview)
 * [Divide and Conquer](#divide-and-conquer)
 * [Result](#result)
@@ -92,6 +92,28 @@ Execution:
 
 Here are examples of commands and their execution with my program: 
 
+```./philo 4 310 200 100```:
+
+
+<img width="237" alt="0 1 has taken a fork" src="https://github.com/liz753/philosophers/assets/114035440/3fa03eb8-f5cf-4059-ba43-f95571e25e1d"> <img width="204" alt="Screen Shot 2023-07-04 at 10 41 17 AM" src="https://github.com/liz753/philosophers/assets/114035440/537bc46e-c705-4435-862e-4c9a16b81720">
+
+
+
+```./philo 3 400 100 100 3```:
+
+<img width="606" alt="Screen Shot 2023-07-04 at 10 34 35 AM" src="https://github.com/liz753/philosophers/assets/114035440/422c99ca-acf2-4d88-a551-a516db85ed50">
+
+```./philo 5 800 200 200```:
+
+<img width="1809" alt="Screen Shot 2023-07-04 at 10 35 55 AM" src="https://github.com/liz753/philosophers/assets/114035440/237e3a31-50b3-46d3-8fb5-f1e8ff8934af">
+
+```./philo 20 400 300 100```:
+
+<img width="253" alt="Screen Shot 2023-07-04 at 10 38 25 AM" src="https://github.com/liz753/philosophers/assets/114035440/b93355df-23a3-4b5d-8608-6f315bbc259c">
+
+
+For the visualization, I used the [philosophers-visualizer](https://nafuka11.github.io/philosophers-visualizer/) by Nafuka11. 
+
 
 ## Tips for 42 students 
 *   you can add ```-fsanitize=thread```to your flags in your makefile to check if there are data races, however, I recommend to only use this flag during the evaluation since it causes a high CPU usage
@@ -103,5 +125,5 @@ Here are examples of commands and their execution with my program:
 * The subject states: “Replace timestamp_in_ms with the current timestamp in milliseconds  and X with the philosopher number.” As I understand it, it refers to the [epoch time](https://stackoverflow.com/questions/1090869/why-is-1-1-1970-the-epoch-time). So, normally, we should print the Unix epoch time, but it’s easier to do debugging and the evaluations if we use the ms elapsed since the beginning of the simulation, i.e. ```timestamp – time start of simulation’’’
 
 ## What I learned 
-- learned about concurrent programming
-- epoch time 
+While working on this project, I deepened my understanding of multithreading and synchronization concepts. Managing concurrent access to shared resources was completely new to me, but easier than I thought at the beginning. I learned how to use mutexes to ensure thread safety and prevent race conditions. Furthermore, I delved into the intricacies of deadlock detection and avoidance. Lastly, I discovered the concept of epoch time which made me feel like a entered a bit more in the progamming world. I really liked the project, even though it was kind of long in the end, final learning: spaghetti comes to those who wait!
+
