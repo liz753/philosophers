@@ -95,7 +95,8 @@ Here are examples of commands and their execution with my program:
 ```./philo 4 310 200 100```:
 
 
-<img width="237" alt="0 1 has taken a fork" src="https://github.com/liz753/philosophers/assets/114035440/3fa03eb8-f5cf-4059-ba43-f95571e25e1d"> <img width="204" alt="Screen Shot 2023-07-04 at 10 41 17 AM" src="https://github.com/liz753/philosophers/assets/114035440/537bc46e-c705-4435-862e-4c9a16b81720">
+<img width="237" alt="0 1 has taken a fork" src="https://github.com/liz753/philosophers/assets/114035440/5456cd89-a3e1-4eb6-83c1-fa804da29d28">
+<img width="204" alt="Screen Shot 2023-07-04 at 10 41 17 AM" src="https://github.com/liz753/philosophers/assets/114035440/d9533c7b-f3c8-40d5-bdd5-7796034f69c8">
 
 
 
