@@ -102,15 +102,18 @@ Here are examples of commands and their execution with my program:
 
 ```./philo 3 400 100 100 3```:
 
-<img width="606" alt="Screen Shot 2023-07-04 at 10 34 35 AM" src="https://github.com/liz753/philosophers/assets/114035440/422c99ca-acf2-4d88-a551-a516db85ed50">
+<img width="761" alt="Screen Shot 2023-07-06 at 3 28 38 PM" src="https://github.com/liz753/philosophers/assets/114035440/0758788e-5acd-430c-96e6-6b00a6403065">
+
 
 ```./philo 5 800 200 200```:
 
-<img width="1809" alt="Screen Shot 2023-07-04 at 10 35 55 AM" src="https://github.com/liz753/philosophers/assets/114035440/237e3a31-50b3-46d3-8fb5-f1e8ff8934af">
+<img width="1530" alt="Screen Shot 2023-07-06 at 3 29 48 PM" src="https://github.com/liz753/philosophers/assets/114035440/229cbfa0-2c59-42c6-89d9-0cf42aa0c801">
+
 
 ```./philo 20 400 300 100```:
 
-<img width="253" alt="Screen Shot 2023-07-04 at 10 38 25 AM" src="https://github.com/liz753/philosophers/assets/114035440/b93355df-23a3-4b5d-8608-6f315bbc259c">
+<img width="259" alt="Screen Shot 2023-07-06 at 3 30 31 PM" src="https://github.com/liz753/philosophers/assets/114035440/e5fdd66a-893d-40a5-a40c-91d28088b083">
+
 
 
 For the visualization, I used the [philosophers-visualizer](https://nafuka11.github.io/philosophers-visualizer/) by Nafuka11. 
